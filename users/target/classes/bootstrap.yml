@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: users-micro
+  cloud:
+    config:
+      uri: http://localhost:8001
