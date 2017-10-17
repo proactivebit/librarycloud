@@ -15,6 +15,7 @@ import pl.training.cloud.common.model.ResultPage;
 
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
@@ -62,6 +63,7 @@ public class BooksController {
     @ApiOperation(value = "Get book by username", response = BookDto.class)
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
     public List<BookDto> getBookById(@PathVariable String username) {
+        System.out.println("Get Book to username "+ username);
         List<Book> books = booksService.getBookByUsername(username);
         return mapper.map(books, BookDto.class);
     }
