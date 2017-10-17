@@ -7,6 +7,8 @@ import pl.training.cloud.books.repository.BooksRepository;
 import pl.training.cloud.books.model.Book;
 import pl.training.cloud.common.model.ResultPage;
 
+import java.util.List;
+
 @Service
 public class BooksService {
 
@@ -28,6 +30,11 @@ public class BooksService {
 
     public Book getBookById(Long id) {
         return booksRepository.getById(id)
+                .orElseThrow(BookNotFoundException::new);
+    }
+
+    public List<Book> getBookByUsername(String username) {
+        return booksRepository.getByUsername(username)
                 .orElseThrow(BookNotFoundException::new);
     }
 

@@ -20,5 +20,6 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Genre genre;
     private String supportEmail;
+    private String username;
 
 }

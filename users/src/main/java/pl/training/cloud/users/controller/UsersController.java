@@ -11,6 +11,7 @@ import pl.training.cloud.common.model.ResultPage;
 import pl.training.cloud.common.web.UriBuilder;
 import pl.training.cloud.users.dto.UserDto;
 import pl.training.cloud.users.model.User;
+import pl.training.cloud.users.service.BooksService;
 import pl.training.cloud.users.service.UsersService;
 
 
@@ -27,10 +28,12 @@ public class UsersController {
     private UsersService usersService;
     private Mapper mapper;
     private UriBuilder uriBuilder = new UriBuilder();
+    private BooksService booksService;
 
-    public UsersController(UsersService usersService, Mapper mapper) {
+    public UsersController(UsersService usersService, Mapper mapper, BooksService booksService) {
         this.usersService = usersService;
         this.mapper = mapper;
+        this.booksService = booksService;
     }
 
     @ApiOperation(value = "Create new user")
@@ -49,7 +52,15 @@ public class UsersController {
             @RequestParam(required = false, defaultValue = "10", name = "pageSize") int pageSize) {
         ResultPage<User> resultPage = usersService.getUsers(pageNumber, pageSize);
         List<UserDto> usersDtos = mapper.map(resultPage.getContent(), UserDto.class);
+        collectUsersBooks(usersDtos);
         return new PageDto<>(usersDtos, resultPage.getPageNumber(), resultPage.getTotalPages());
+    }
+
+    private void collectUsersBooks(List<UserDto> userDtos){
+
+        for(UserDto userDto: userDtos){
+            booksService.getBookByUsername(userDto.getLogin()).ifPresent(books -> userDto.setBooks(books));
+        }
     }
 
 }

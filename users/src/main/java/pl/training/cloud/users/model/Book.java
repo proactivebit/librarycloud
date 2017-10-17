@@ -1,11 +1,10 @@
-package pl.training.cloud.books.dto;
+package pl.training.cloud.users.model;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-@ApiModel(value = "User")
+
 @Data
-public class BookDto {
+public class Book {
 
     private Long id;
     private String title;
@@ -13,8 +12,5 @@ public class BookDto {
     private String category;
     private boolean favourite;
     private int rating;
-    private GenreDto genre;
     private String supportEmail;
-    private String username;
-
 }

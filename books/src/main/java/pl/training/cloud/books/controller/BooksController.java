@@ -59,6 +59,13 @@ public class BooksController {
         return mapper.map(book, BookDto.class);
     }
 
+    @ApiOperation(value = "Get book by username", response = BookDto.class)
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    public List<BookDto> getBookById(@PathVariable String username) {
+        List<Book> books = booksService.getBookByUsername(username);
+        return mapper.map(books, BookDto.class);
+    }
+
     @ApiOperation(value = "Update book")
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity updateBook(@ApiParam(name = "book") @RequestBody BookDto bookDto, @PathVariable Long id) {
