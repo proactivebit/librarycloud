@@ -5,5 +5,5 @@ spring:
     config:
       server:
         git:
-          uri: file:///C:/Users/dkure/IdeaProjects/config-server
+          uri: https://github.com/kursonix/librarycloud
           search-paths: configuration-files
